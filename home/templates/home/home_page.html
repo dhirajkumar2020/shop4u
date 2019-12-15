@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 <!-- This code is important or else it will throw template not found -->
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-homepage{% endblock %}
 
 
 
 {% block content %}
+{% image self.banner_image min-900x100 as img %}
     <div class="container-fluid px-0">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -37,16 +38,21 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
+            <a class="btn btn-danger mr-2" href="http://localhost:8000/login/" role="button">{% if request.user.is_authenticated %} hi! {{ request.user.username }}{% else %}
+                Hi guest! please login {% endif %}</a>
+            <a class="btn btn-danger mr-2" href="http://localhost:8000/signup/" role="button">Sign up</a>
+            <a class="btn btn-danger mr-2" href="{% url 'account_logout' %}" role="button">Logout</a>
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
         </form>
         </div>
     </nav>
 
     <!-- Navabar-ends -->
-
+    {% if request.user.is_authenticated %}
+  
     <!-- Jumbotron -->
-    <div class="jumbotron text-center mb-0">
+    <div class="jumbotron text-center mb-0" style="background-image: url('{{img.url}}')">
         <h1>{{page.head|richtext}}</h1>
         <p class="lead">{{ page.body|richtext }}</p>
         <a class="btn btn-primary btn-lg text-center  " href="#" role="button">Learn more</a>
@@ -63,7 +69,7 @@
         </ol>
         <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png" class="d-block w-100" style="height: 500px;">
+            <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png" class="d-block w-100 img-fluid" style="height: 500px;">
             <div class="carousel-caption d-none d-md-block">
             <h5>First slide label</h5>
             <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
@@ -95,5 +101,54 @@
     </div>
     <!-- Carousel-ends -->
 
+
+    <!-- Text-center-image-gallery -->
+<div class="container-fluid bg-2 text-center">    
+    <h3>Portfolio</h3><br>
+    <div class="row">
+      <div class="col-sm-3">
+        <p>Camera</p>
+        <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+      <div class="col-sm-3"> 
+        <p>Cloths</p>
+        <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+      <div class="col-sm-3"> 
+        <p>Mobile</p>
+        <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+      <div class="col-sm-3">
+        <p>Foody</p>
+        <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png " class="img-responsive" style="width:100%" alt="Image">
+      </div>
+    </div>
+  </div><br>
+  
+  
+  <div class="container-fluid bg-3 text-center">    
+    <div class="row">
+      <div class="col-sm-3">
+        <p>Pizza</p>
+        <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+      <div class="col-sm-3"> 
+        <p>laptop</p>
+        <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+      <div class="col-sm-3"> 
+        <p>Classes</p>
+        <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+      <div class="col-sm-3">
+        <p>Sweets</p>
+        <img src="../media/images/Screenshot_from_2019-12-14_14-19-01.width-800.png" class="img-responsive" style="width:100%" alt="Image">
+      </div>
+    </div>
+  </div><br><br>
+  <!-- Text-center-image-gallery -->
+  
+
 </div>
+{% endif %}
 {% endblock %}
