@@ -5,7 +5,7 @@ chardet==3.0.4
 cipher==0.1
 Click==7.0
 colorama==0.4.1
-cryptography==2.5
+cryptography==3.2
 dj-database-url==0.5.0
 Django==2.1.5
 django-multiselectfield==0.1.8
